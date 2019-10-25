@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     String word;
     private AutoCompleteTextView actv;
+    private TextView tv;
     private Button btn;
     private ListView lv;
     private Map<String,String> wordMeaning;
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         actv=findViewById(R.id.actv);
         btn=findViewById(R.id.btn);
         lv=findViewById(R.id.lv);
+        tv=findViewById(R.id.tv);
 
         wordMeaning=new HashMap<>();
         for(int i=0; i<WordAndMeaning.length; i+=2)
@@ -63,7 +66,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
      //code for autocomplete texxtview
-        actv.setAdapter(arrayAdapter);
+        ArrayAdapter arrayAdapter1=new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_list_item_1,
+                new ArrayList(wordMeaning.keySet())
+        );
+        actv.setAdapter(arrayAdapter1);
         actv.setThreshold(1);
         btn.setOnClickListener(this);
 
@@ -74,7 +82,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         word=actv.getText().toString();
         String meaning=wordMeaning.get(word);
-        Toast.makeText(this, "The meaning of "+ word + " is " + meaning, Toast.LENGTH_SHORT).show();
+        tv.setText("The meaning of" + word+ " is "+ meaning);
+        //Toast.makeText(this, "The meaning of "+ word + " is " + meaning, Toast.LENGTH_SHORT).show();
 
     }
 }
