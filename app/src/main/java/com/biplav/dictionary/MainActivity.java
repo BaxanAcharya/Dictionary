@@ -3,18 +3,21 @@ package com.biplav.dictionary;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
+    String word;
     private AutoCompleteTextView actv;
     private Button btn;
     private ListView lv;
@@ -57,5 +60,21 @@ public class MainActivity extends AppCompatActivity {
                 new ArrayList(wordMeaning.keySet())
         );
        lv.setAdapter(arrayAdapter);
+
+
+     //code for autocomplete texxtview
+        actv.setAdapter(arrayAdapter);
+        actv.setThreshold(1);
+        btn.setOnClickListener(this);
+
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        word=actv.getText().toString();
+        String meaning=wordMeaning.get(word);
+        Toast.makeText(this, "The meaning of "+ word + " is " + meaning, Toast.LENGTH_SHORT).show();
+
     }
 }
