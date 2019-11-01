@@ -82,8 +82,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         word=actv.getText().toString();
         String meaning=wordMeaning.get(word);
-        tv.setText("The meaning of" + word+ " is "+ meaning);
+        if(meaning!=null){
+        tv.setText("The meaning of " + word+ " is "+ meaning);}
         //Toast.makeText(this, "The meaning of "+ word + " is " + meaning, Toast.LENGTH_SHORT).show();
 
+        else {
+            tv.setText("The word you searched for is not in the dictionary");
+        }
     }
 }
